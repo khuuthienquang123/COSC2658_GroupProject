@@ -1,26 +1,40 @@
+import Place.Place;
+import QuadTree.QuadTree;
+
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args){
-        Map2D map = new Map2D();
+        QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
 
         // Add places with their services
-        map.add(new Place(1000, 2000, List.of("Restaurant", "ATM")));
-        map.add(new Place(1500, 2500, List.of("Gas Station")));
-        map.add(new Place(3000, 3000, List.of("Coffee Shop", "Restaurant")));
+        Place place1 = new Place(2000, 3500);
+        place1.setServices(Arrays.asList("Coffee Shop", "ATM"));
+        tree.add(place1);
 
+        Place place2 = new Place(150, 250);
+        place2.setServices(Arrays.asList("Restaurant"));
+        tree.add(place2);
         // Edit services for a place
-        map.edit(0, List.of("Restaurant")); // Assuming place at index 0 needs editing
+        tree.editPlace(place1, Arrays.asList("Bakery", "WiFi"));
 
         // Remove a place
-        map.remove(1); // Assuming place at index 1 needs to be removed
+        tree.removePlace(place2); // Assuming place at index 1 needs to be removed
 
         // Search for places offering a specific service within a bounding rectangle
-        List<Place> searchResults = map.search(1000, 2000, 5000, 5000, "Restaurant");
+        List<Place> searchResults = tree.search(1000, 2000, 5000, 5000, "Bakery");
 
         // Display results
-        for (Place p : searchResults) {
-            System.out.println("Place at (" + p.getX() + ", " + p.getY() + ") offers: " + String.join(", ", p.getServices()));
+        int count = 0;
+        for (Place p : searchResults){
+            System.out.println("Place.Place at (" + p.getX() + ", " + p.getY() + ") offers: " + String.join(", ", p.getServices()));
+            count++;
+            if(count == 50){
+                break;
+            }
         }
     }
 }
