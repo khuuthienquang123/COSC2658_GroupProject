@@ -30,7 +30,7 @@ public class Main {
         // Display results
         int count = 0;
         for (Place p : searchResults){
-            System.out.println("Place.Place at (" + p.getX() + ", " + p.getY() + ") offers: " + String.join(", ", p.getServices()));
+            System.out.println("Place at (" + p.getX() + ", " + p.getY() + ") offers: " + String.join(", ", p.getServices()));
             count++;
             if(count == 50){
                 break;
