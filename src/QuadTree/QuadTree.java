@@ -28,4 +28,6 @@ public class QuadTree {
     public void removePlace(Place place){
         root.remove(place);
     }
+
+    //test
 }
