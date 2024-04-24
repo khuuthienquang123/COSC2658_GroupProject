@@ -11,7 +11,7 @@ public class Main {
         QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
 
         // Add places with their services
-        Place place1 = new Place(2000, 3500);
+        Place place1 = new Place(9500000, 9750000);
         place1.setServices(Arrays.asList("Coffee Shop", "ATM"));
         tree.add(place1);
 
@@ -25,7 +25,7 @@ public class Main {
         tree.removePlace(place2); // Assuming place at index 1 needs to be removed
 
         // Search for places offering a specific service within a bounding rectangle
-        List<Place> searchResults = tree.search(1000, 2000, 5000, 5000, "Bakery");
+        List<Place> searchResults = tree.search(900000, 800000, 9000000, 9000000, "Bakery");
 
         // Display results
         int count = 0;
