@@ -1,13 +1,16 @@
 package Place;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Place {
+public class Place implements Comparable<Place>{
     private final int x, y;
     private Set<String> services;
+    private double distance;
 
     public Place(int x, int y) {
         this.x = x;
@@ -31,4 +34,15 @@ public class Place {
         this.services.clear();
         this.services.addAll(newServices);
     }
+
+    @Override
+    public int compareTo(Place other) {
+        return Double.compare(this.distance, other.distance);
+    }
+
+    @Override
+    public String toString() {
+        return "Distance: " + String.format("%.2f", distance) + ", Location: (" + x + ", " + y + "), Services: " + services;
+    }
 }
+

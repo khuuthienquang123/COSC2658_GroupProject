@@ -10,12 +10,14 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Map2D {
+    // A map from service types to another map, which maps coordinates to a set of services.
     private Map<String, Map<Coordinate, Set<String>>> places;
 
     public Map2D() {
         places = new HashMap<>();
     }
 
+    // Adds services at a given coordinate.
     public void add(int x, int y, String[] services) {
         Coordinate coordinate = new Coordinate(x, y);
         for (String service : services) {
@@ -25,6 +27,7 @@ public class Map2D {
         }
     }
 
+    // Edits the services at a given coordinate.
     public void edit(int x, int y, String[] newServices) {
         Coordinate coordinate = new Coordinate(x, y);
         for (Map.Entry<String, Map<Coordinate, Set<String>>> entry : places.entrySet()) {
@@ -35,6 +38,7 @@ public class Map2D {
         }
     }
 
+    // Removes all services from a given coordinate.
     public void remove(int x, int y) {
         Coordinate coordinate = new Coordinate(x, y);
         for (Map.Entry<String, Map<Coordinate, Set<String>>> entry : places.entrySet()) {
@@ -42,6 +46,7 @@ public class Map2D {
         }
     }
 
+    // Searches for places within a specified rectangle area and returns a sorted list of places.
     public List<Place> search(int top_left_x, int top_left_y, int width, int height, String serviceType, int maxResults) {
         int center_x = top_left_x + width / 2;
         int center_y = top_left_y + height / 2;
@@ -60,12 +65,19 @@ public class Map2D {
 
     public static void main(String[] args) {
         Map2D map = new Map2D();
+        // Sample data for testing
         map.add(1200, 2200, new String[]{"coffee_shop", "restaurant"});
         map.add(1500, 2500, new String[]{"coffee_shop"});
         map.add(1600, 2600, new String[]{"coffee_shop"});
         map.add(3000, 4000, new String[]{"hospital"});
         map.add(2500, 3300, new String[]{"bakery", "coffee_shop"});
         map.add(1800, 2400, new String[]{"library"});
+        map.add(10000000, 10000000, new String[]{"shopping_mall"});
+        map.add(10000000, 10005000, new String[]{"university"});
+        map.add(10005000, 10000000, new String[]{"supermarket"});
+        map.add(10100000, 10100000, new String[]{"stadium"});
+        map.add(10200000, 10200000, new String[]{"movie_theater"});
+        map.add(10300000, 10300000, new String[]{"museum"});
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the service type you want to search for (e.g., coffee_shop):");
@@ -112,8 +124,7 @@ class Coordinate {
     }
 }
 
-class Place implements Comparable<Place> {
-    double distance;
+class Place implements Comparable<Place> { public double distance;
     int x, y;
     Set<String> services;
 
