@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Map2D {
     private Map<String, Map<Coordinate, Set<String>>> places;
@@ -46,11 +47,9 @@ public class Map2D {
         int center_y = top_left_y + height / 2;
         List<Place> results = new ArrayList<>();
 
-        System.out.println("Search Center: (" + center_x + ", " + center_y + ")");
         places.getOrDefault(serviceType, Collections.emptyMap()).forEach((coord, services) -> {
             if (coord.x >= top_left_x && coord.x <= top_left_x + width && coord.y >= top_left_y && coord.y <= top_left_y + height) {
                 double dist = Math.sqrt(Math.pow(center_x - coord.x, 2) + Math.pow(center_y - coord.y, 2));
-                System.out.println("Checking: (" + coord.x + ", " + coord.y + ") - Distance: " + dist);
                 results.add(new Place(dist, coord.x, coord.y, services));
             }
         });
@@ -65,11 +64,29 @@ public class Map2D {
         map.add(1500, 2500, new String[]{"coffee_shop"});
         map.add(1600, 2600, new String[]{"coffee_shop"});
         map.add(3000, 4000, new String[]{"hospital"});
+        map.add(2500, 3300, new String[]{"bakery", "coffee_shop"});
+        map.add(1800, 2400, new String[]{"library"});
 
-        List<Place> searchResults = map.search(750, 1750, 500, 500, "coffee_shop", 50);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the service type you want to search for (e.g., coffee_shop):");
+        String serviceType = scanner.nextLine();
+        System.out.println("Enter the top-left X coordinate of your search area:");
+        int tlx = scanner.nextInt();
+        System.out.println("Enter the top-left Y coordinate of your search area:");
+        int tly = scanner.nextInt();
+        System.out.println("Enter the width of your search area:");
+        int width = scanner.nextInt();
+        System.out.println("Enter the height of your search area:");
+        int height = scanner.nextInt();
+        System.out.println("Enter the maximum number of results you want:");
+        int maxResults = scanner.nextInt();
+
+        List<Place> searchResults = map.search(tlx, tly, width, height, serviceType, maxResults);
         for (Place p : searchResults) {
             System.out.println(p);
         }
+
+        scanner.close();
     }
 }
 
