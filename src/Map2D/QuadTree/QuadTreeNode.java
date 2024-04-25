@@ -1,19 +1,21 @@
-package QuadTree;
+package Map2D.QuadTree;
 
-import Place.Place;
+import Map2D.Place;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class QuadTreeNode {
     static final int CAPACITY = 4;
-    List<Place> places = new ArrayList<Place>();
+    List<Place> places;
     QuadTreeNode[] children;
 
     // Bounding box - top left (x1,y1) & bottom right (x2,y2)
-    private int x1, y1, x2, y2;
+    private final int x1;
+    private final int y1;
+    private final int x2;
+    private final int y2;
 
     public QuadTreeNode(int x1, int y1, int x2, int y2){
         this.x1 = x1;
@@ -74,7 +76,7 @@ public class QuadTreeNode {
     }
 
     public List<Place> queryPlace(int searchX1, int searchY1, int searchX2, int searchY2, String service){
-        List<Place> result = new ArrayList<Place>();
+        List<Place> result = new ArrayList<>();
 
         if(!intersects(searchX1, searchY1, searchX2, searchY2)){
             return result;

@@ -1,10 +1,9 @@
-package QuadTree;
+package Map2D.QuadTree;
 
-import Place.Place;
+import Map2D.Place;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class QuadTree {
     QuadTreeNode root;
@@ -28,6 +27,4 @@ public class QuadTree {
     public void removePlace(Place place){
         root.remove(place);
     }
-
-    //test
 }
