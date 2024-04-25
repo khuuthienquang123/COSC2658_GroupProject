@@ -1,0 +1,52 @@
+10000100, 9999950, Highlands Coffee, Cafe
+10000200, 9999900, CGV Cinema, Movie Theater
+10000300, 9999850, April Park, Park
+10000400, 9999800, The Saigon Library, Library
+10000500, 9999750, Pho 24, Restaurant
+10000600, 9999700, Starbucks, Cafe
+10000700, 9999650, BHD Star Cineplex, Movie Theater
+10000800, 9999600, Le Van Tam Park, Park
+10000900, 9999550, American Center Library, Library
+10001000, 9999500, Lotteria, Restaurant
+10001100, 9999450, Trung Nguyen Coffee, Cafe
+10001200, 9999400, Galaxy Cinema, Movie Theater
+10001300, 9999350, 23/9 Park, Park
+10001400, 9999300, British Council Library, Library
+10001500, 9999250, KFC, Restaurant
+10001600, 9999200, The Coffee House, Cafe
+10001700, 9999150, Lotte Cinema, Movie Theater
+10001800, 9999100, Tao Dan Park, Park
+10001900, 9999050, Goethe Institut Library, Library
+10002000, 9999000, Jollibee, Restaurant
+10002100, 9998950, Cong Cafe, Cafe
+10002200, 9998900, Mega GS Cinema, Movie Theater
+10002300, 9998850, Hoa Binh Park, Park
+10002400, 9998800, National Library, Library
+10002500, 9998750, Pizza Hut, Restaurant
+10002600, 9998700, Vincom Ice Rink, Entertainment
+10002700, 9998650, Saigon Sports Club, Gym
+10002800, 9998600, Youth Cultural House, Event Venue
+10002900, 9998550, Saigon Outcast, Arts & Events
+10003000, 9998500, Snap Cafe, Cafe
+10003100, 9998450, RMIT Sports Arena, Sports Facility
+10003200, 9998400, Zoo Coffee, Cafe
+10003300, 9998350, Saigon Zoo, Zoo
+10003400, 9998300, Hem Chill Bar, Bar
+10003500, 9998250, Chill Skybar, Bar
+10003600, 9998200, Hard Rock Cafe, Cafe
+10003700, 9998150, Soul Ben Thanh, Restaurant
+10003800, 9998100, Takashimaya, Shopping Mall
+10003900, 9998050, Central Park, Park
+10004000, 9998000, Robusta Cafe, Cafe
+10004100, 9997950, Hana BBQ, Restaurant
+10004200, 9997900, Cafe Cardinal, Cafe
+10004300, 9997850, Rex Hotel Roof Garden, Bar
+10004400, 9997800, City Hall Viewing Deck, Tourist Attraction
+10004500, 9997750, Saigon Skydeck, Tourist Attraction
+10004600, 9997700, Vincom Center, Shopping Mall
+10004700, 9997650, Ben Thanh Market, Market
+10004800, 9997600, Saigon Centre, Shopping Mall
+10004900, 9997550, Notre-Dame Cathedral Basilica of Saigon, Historic Site
+10005000, 9997500, War Remnants Museum, Museum
+
+10005000, 10005000, rmit, school
