@@ -3,7 +3,6 @@ import Map2D.QuadTree.QuadTree;
 
 import java.util.List;
 
-
 public class Main {
     public static void main(String[] args){
         QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
@@ -33,7 +32,7 @@ public class Main {
         place6.setServices(List.of("Bakery", "Coffee Shop"));
         tree.add(place6);
 
-        Place place7 = new Place(3200, 4300, "Valley School");
+        Place place7 = new Place(9000000, 8000000, "Valley School");
         place7.setServices(List.of("School"));
         tree.add(place7);
 
@@ -57,7 +56,7 @@ public class Main {
         tree.removePlace(place2); // Assuming place at index 1 needs to be removed
 
         // Search for places offering a specific service within a bounding rectangle
-        List<Place> searchResults = tree.search(0, 0, 50000, 50000, "Supermarket");
+        List<Place> searchResults = tree.search(0, 0, 10000000, 10000000, "School");
 
         // Display results
         int count = 0;
@@ -69,6 +68,7 @@ public class Main {
             }
         }
 
-        Place.calculateDistance(place3, place5);
+
     }
 }
+

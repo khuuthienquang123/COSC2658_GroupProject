@@ -1,16 +1,17 @@
+package Map2D;
+
 import Map2D.Place;
 import Map2D.QuadTree.QuadTree;
+
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Map2D {
+    private static final File file = new File("src/Data/place.txt");
+
     public static void main(String[] args) {
         QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
-        File file = new File("D:\\Java\\COSC2658_DataStructuresAndAlgorithms_GroupProject\\src\\Map2D\\QuadTree\\place.txt");
 
         System.out.println("Checking file path: " + file.getAbsolutePath()); // Debug: Check file path
 
@@ -80,11 +81,38 @@ public class Map2D {
 
     private static void addPlaceToFile(int x, int y, String name, String service) {
         String data = x + ", " + y + ", " + name + ", " + service + "\n";
-        try (FileWriter fw = new FileWriter("D:\\Java\\COSC2658_DataStructuresAndAlgorithms_GroupProject\\src\\Map2D\\QuadTree\\place.txt", true)) {
+        try (FileWriter fw = new FileWriter("src/Map2D/place.txt", true)) {
             fw.write(data);
             System.out.println("Successfully added place to file: " + name);
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void searchInBoundedArea(){
+        Scanner scanner = new Scanner(System.in);
+
+        //User input
+        System.out.print("Enter the first location name: ");
+        String location1 = scanner.next();
+        System.out.print("Enter the second location name: ");
+        String location2 = scanner.next();
+
+        /*READ THE TXT FILE*/
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String currentLine;
+
+            if ((currentLine = reader.readLine()) != null){
+                String[] token = currentLine.split(",");
+                String locationName = token[3].trim();
+
+                if(location1.equals(locationName)){
+
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

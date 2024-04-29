@@ -78,6 +78,7 @@ public class QuadTreeNode {
     public List<Place> queryPlace(int searchX1, int searchY1, int searchX2, int searchY2, String service){
         List<Place> result = new ArrayList<>();
 
+
         if(!intersects(searchX1, searchY1, searchX2, searchY2)){
             return result;
         }

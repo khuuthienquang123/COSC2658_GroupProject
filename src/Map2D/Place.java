@@ -42,7 +42,7 @@ public class Place {
         double distance = Math.sqrt((p1.getX() - p2.getX()) * (p1.getX() - p2.getX()) +
                 (p1.getY() - p2.getY()) * (p1.getY() - p2.getY()));
 
-        System.out.println("Distance from " + p1.getName()+ " to " + p2.getName() + ": " + distance +
+        System.out.println("Distance from " + p1.getName()+ " to " + p2.getName() + ": " +(int) distance +
                 "m.");
     }
 }
