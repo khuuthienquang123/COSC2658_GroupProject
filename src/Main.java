@@ -1,3 +1,4 @@
+import Map2D.Map2D;
 import Map2D.Place;
 import Map2D.QuadTree.QuadTree;
 
@@ -68,7 +69,15 @@ public class Main {
             }
         }
 
+        /*
+                 **************
+                 *** MAP 2D ***
+                 **************
+        */
 
+        //Map2D.searchInBoundedArea();
+
+        Map2D.currentLocationCalculate();
     }
 }
 

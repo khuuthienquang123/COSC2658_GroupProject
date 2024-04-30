@@ -26,7 +26,6 @@
 10002600, 9998700, Vincom Ice Rink, Entertainment
 10002700, 9998650, Saigon Sports Club, Gym
 10002800, 9998600, Youth Cultural House, Event Venue
-10002900, 9998550, Saigon Outcast, Arts & Events
 10003000, 9998500, Snap Cafe, Cafe
 10003100, 9998450, RMIT Sports Arena, Sports Facility
 10003200, 9998400, Zoo Coffee, Cafe
@@ -48,5 +47,4 @@
 10004800, 9997600, Saigon Centre, Shopping Mall
 10004900, 9997550, Notre-Dame Cathedral Basilica of Saigon, Historic Site
 10005000, 9997500, War Remnants Museum, Museum
-
 10005000, 10005000, rmit, school

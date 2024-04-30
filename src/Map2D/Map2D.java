@@ -1,11 +1,10 @@
 package Map2D;
 
-import Map2D.Place;
 import Map2D.QuadTree.QuadTree;
+import Map2D.QuadTree.QuadTreeNode;
 
 import java.io.*;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Map2D {
     private static final File file = new File("src/Data/place.txt");
@@ -89,31 +88,232 @@ public class Map2D {
         }
     }
 
-    public void searchInBoundedArea(){
-        Scanner scanner = new Scanner(System.in);
+    public static List<Place> getList(){
+        List<Place> placeList = new ArrayList<>();
 
-        //User input
-        System.out.print("Enter the first location name: ");
-        String location1 = scanner.next();
-        System.out.print("Enter the second location name: ");
-        String location2 = scanner.next();
-
-        /*READ THE TXT FILE*/
+        /* READ THE TXT FILE */
         try{
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String currentLine;
 
-            if ((currentLine = reader.readLine()) != null){
+            while ((currentLine = reader.readLine()) != null) { // Read until end of file
                 String[] token = currentLine.split(",");
-                String locationName = token[3].trim();
+                if (token.length > 3) {
+                    try{
 
-                if(location1.equals(locationName)){
+                        int locationX = Integer.parseInt(token[0].trim());
+                        int locationY = Integer.parseInt(token[1].trim());
+                        String locationName = token[2].trim();
 
+                        // Collect services
+                        Set<String> services = new HashSet<>();
+                        for (int i = 3; i < token.length; i++) {
+                            services.add(token[i].trim());
+                        }
+
+                        // Create and add Place to the list
+                        Place place = new Place(locationX, locationY, locationName);
+                        place.addServices(services);
+                        placeList.add(place);
+
+                    }catch (NumberFormatException e) {
+                        System.err.println("Skipping line due to parsing error: " + currentLine);
+                    }
                 }
             }
+            reader.close();
+
         } catch (Exception e) {
-            throw new RuntimeException(e);
+                System.err.println("Error reading file: " + e.getMessage());
+                throw new RuntimeException("Failed to read places from file", e); // Throw an exception to indicate failure
         }
+        return placeList;
+    }
+
+    public static List<Place> searchLocation_service(String service) {
+        List<Place> places = getList();
+
+        List<Place> results = new ArrayList<>();
+
+        for (Place place : places) {
+            if (place.getServices().contains(service)) {
+                results.add(place);
+            }
+        }
+        return results;
+    }
+
+    private static double getMaxNum(List<Double> list){
+        double max = 0;
+        for(double num: list){
+            if(num > max){
+                max = num;
+            }
+        }
+        return max;
+    }
+
+    private static double getMinNum(List<Double> list){
+        double min = Integer.MAX_VALUE;
+        for(double num: list){
+            if(num < min){
+                min = num;
+            }
+        }
+        return min;
+    }
+
+    private static void displayPlaces(List<Place> places,int centerX, int centerY){
+        System.out.println("*** LIST OF PLACES ***");
+        for(Place place: places){
+            //Calculate the distance
+            int deltaX = centerX - place.getX();
+            int deltaY = centerY - place.getY();
+            double dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            //display
+            System.out.println("Distance from " + place.getName() + " to your given location is: " + (int) dist + "m");
+        }
+    }
+
+    private static void displayPlacesForCurrent(List<Place> places,int centerX, int centerY){
+        System.out.println("*** LIST OF PLACES ***");
+        for(Place place: places){
+            //Calculate the distance
+            int deltaX = centerX - place.getX();
+            int deltaY = centerY - place.getY();
+            double dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            //display
+            System.out.println("Distance from your destination to " + place.getName() + "is: " + (int) dist + "m");
+        }
+    }
+
+    private static List<Place> searchNearby(int centerX, int centerY, double distance, String service) {
+        List<Place> places = getList();
+        List<Place> results = new ArrayList<>();
+
+        for (Place place : places) {
+            if (place.getServices().contains(service)) {
+                int deltaX = centerX - place.getX();
+                int deltaY = centerY - place.getY();
+                double dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                if (dist <= distance) {
+                    results.add(place);
+                }
+            }
+        }
+        return results;
+    }
+    /*
+           *** SEARCH PLACES IN BOUNDED AREA ***
+                                                    */
+    public static void searchInBoundedArea(){
+        Scanner scanner = new Scanner(System.in);
+
+        //User input
+        System.out.print("Enter the type of service you want to search: ");
+        String service = scanner.nextLine();
+        System.out.print("Enter the location name: ");
+        String location = scanner.nextLine();
+
+        int locationX = 0, locationY = 0;
+        String currentLine = "";
+
+        /* READ THE TXT FILE */
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            while ((currentLine = reader.readLine() )!= null) {
+                String[] token = currentLine.split(",");
+
+                String locationName = token[2].trim();
+                int x = Integer.parseInt(token[0].trim());
+                int y = Integer.parseInt(token[1].trim());
+
+                if (location.equals(locationName)) {
+                    locationX = x;
+                    locationY = y;
+                }
+
+            }
+                //list for places with chosen service
+                List<Place> places_service = searchLocation_service(service);
+
+                //List to store the distance for comparison to get the max distance
+                List<Double> listOfDistances = new ArrayList<>();
+
+                for(Place place: places_service){
+                    int deltaX = locationX - place.getX();
+                    int deltaY = locationY - place.getY();
+                    Double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                    //Add the distance to the list
+                    listOfDistances.add(distance);
+                }
+                // Get maximum and minimum distances
+                double maxDistance = getMaxNum(listOfDistances);
+                System.out.println("\nThe furthest distance is: " + (int) maxDistance + "m");
+
+                double minDistance = getMinNum(listOfDistances);
+                 System.out.println("The closest distance is: " + (int) minDistance + "m\n");
+
+                //get nearby places
+                List<Place> nearbyPlaces = searchNearby(locationX, locationY, maxDistance, service);
+
+                //display
+                displayPlaces(nearbyPlaces, locationX, locationY);
+
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Error parsing integers from line: " + currentLine);
+        }
+    }
+
+
+
+    /*
+         *** SEARCH PLACES IN BOUNDED AREA WITH CURRENT LOCATION ***
+                                                                          */
+
+    public static void currentLocationCalculate(){
+        Scanner scanner = new Scanner(System.in);
+
+        //User input
+        System.out.print("Enter the type of services: ");
+        String serviceType = scanner.nextLine();
+
+        //Set the default coordinates for the current location
+        int locationX = 10005000, locationY = 10005000;
+
+        //list for places with chosen service
+        List<Place> availablePlaces = searchLocation_service(serviceType);
+
+        //List to store the distance for comparison to get the max distance
+        List<Double> listOfDistances = new ArrayList<>();
+
+        for(Place place: availablePlaces){
+            int deltaX = locationX - place.getX();
+            int deltaY = locationY - place.getY();
+            Double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            //Add the distance to the list
+            listOfDistances.add(distance);
+        }
+
+        // Get maximum and minimum distances
+        double maxDistance = getMaxNum(listOfDistances);
+        System.out.println("\nThe furthest distance is: " + (int) maxDistance + "m");
+
+        double minDistance = getMinNum(listOfDistances);
+        System.out.println("The closest distance is: " + (int) minDistance + "m\n");
+
+        //get nearby places
+        List<Place> nearbyPlaces = searchNearby(locationX, locationY, maxDistance, serviceType);
+
+        //display
+        displayPlacesForCurrent(nearbyPlaces, locationX, locationY);
     }
 }
 
