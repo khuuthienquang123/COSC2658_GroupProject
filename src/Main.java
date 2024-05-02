@@ -3,6 +3,7 @@ import Map2D.Place;
 import Map2D.QuadTree.QuadTree;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
@@ -69,15 +70,51 @@ public class Main {
             }
         }
 
-        /*
-                 **************
+        /*       **************
                  *** MAP 2D ***
-                 **************
-        */
+                 **************        */
 
-        //Map2D.searchInBoundedArea();
+        Scanner scanner = new Scanner(System.in);
 
-        Map2D.currentLocationCalculate();
+        while (true) {
+            System.out.println("-- WELCOME --");
+            System.out.println("--------------------------------");
+            System.out.println(" -- MENU -- ");
+            System.out.println("1. Search in Bounded Area");
+            System.out.println("2. Calculate Current Location");
+            System.out.println("3. Add Place");
+            System.out.println("4. Edit Place");
+            System.out.println("5. Remove Place");
+            System.out.println("6. Exit");
+            System.out.print("\nPlease enter a number: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    Map2D.searchInBoundedArea();
+                    break;
+                case 2:
+                    Map2D.currentLocationCalculate();
+                    break;
+                case 3:
+                    Map2D.addPlace(tree);
+                    break;
+                case 4:
+                    Map2D.editPlace();
+                    break;
+                case 5:
+                    Map2D.removePlace();
+                    break;
+                case 6:
+                    System.out.println("Exiting program.");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+                    break;
+            }
+        }
     }
 }
 

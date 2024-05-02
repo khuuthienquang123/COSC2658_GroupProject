@@ -1,50 +1,49 @@
-10000100, 9999950, Highlands Coffee, Cafe
-10000200, 9999900, CGV Cinema, Movie Theater
-10000300, 9999850, April Park, Park
-10000400, 9999800, The Saigon Library, Library
-10000500, 9999750, Pho 24, Restaurant
-10000600, 9999700, Starbucks, Cafe
-10000700, 9999650, BHD Star Cineplex, Movie Theater
-10000800, 9999600, Le Van Tam Park, Park
-10000900, 9999550, American Center Library, Library
-10001000, 9999500, Lotteria, Restaurant
-10001100, 9999450, Trung Nguyen Coffee, Cafe
-10001200, 9999400, Galaxy Cinema, Movie Theater
-10001300, 9999350, 23/9 Park, Park
-10001400, 9999300, British Council Library, Library
-10001500, 9999250, KFC, Restaurant
-10001600, 9999200, The Coffee House, Cafe
-10001700, 9999150, Lotte Cinema, Movie Theater
-10001800, 9999100, Tao Dan Park, Park
-10001900, 9999050, Goethe Institut Library, Library
-10002000, 9999000, Jollibee, Restaurant
-10002100, 9998950, Cong Cafe, Cafe
-10002200, 9998900, Mega GS Cinema, Movie Theater
-10002300, 9998850, Hoa Binh Park, Park
-10002400, 9998800, National Library, Library
-10002500, 9998750, Pizza Hut, Restaurant
-10002600, 9998700, Vincom Ice Rink, Entertainment
-10002700, 9998650, Saigon Sports Club, Gym
-10002800, 9998600, Youth Cultural House, Event Venue
-10003000, 9998500, Snap Cafe, Cafe
-10003100, 9998450, RMIT Sports Arena, Sports Facility
-10003200, 9998400, Zoo Coffee, Cafe
-10003300, 9998350, Saigon Zoo, Zoo
-10003400, 9998300, Hem Chill Bar, Bar
-10003500, 9998250, Chill Skybar, Bar
-10003600, 9998200, Hard Rock Cafe, Cafe
-10003700, 9998150, Soul Ben Thanh, Restaurant
-10003800, 9998100, Takashimaya, Shopping Mall
-10003900, 9998050, Central Park, Park
-10004000, 9998000, Robusta Cafe, Cafe
-10004100, 9997950, Hana BBQ, Restaurant
-10004200, 9997900, Cafe Cardinal, Cafe
-10004300, 9997850, Rex Hotel Roof Garden, Bar
-10004400, 9997800, City Hall Viewing Deck, Tourist Attraction
-10004500, 9997750, Saigon Skydeck, Tourist Attraction
-10004600, 9997700, Vincom Center, Shopping Mall
-10004700, 9997650, Ben Thanh Market, Market
-10004800, 9997600, Saigon Centre, Shopping Mall
-10004900, 9997550, Notre-Dame Cathedral Basilica of Saigon, Historic Site
-10005000, 9997500, War Remnants Museum, Museum
-10005000, 10005000, rmit, school
+23423, 47352, Highlands Coffee, Cafe
+24423, 48352, CGV Cinema, Movie Theater
+25423, 49352, April Park, Park
+26423, 50352, The Saigon Library, Library
+27423, 51352, Pho 24, Restaurant
+28423, 52352, Starbucks, Cafe
+29423, 53352, BHD Star Cineplex, Movie Theater
+30423, 54352, Le Van Tam Park, Park, Gym
+31423, 55352, American Center Library, Library
+32423, 56352, Lotteria, Restaurant
+33423, 57352, Trung Nguyen Coffee, Cafe
+34423, 58352, Galaxy Cinema, Movie Theater
+35423, 59352, 23/9 Park, Park
+36423, 60352, British Council Library, Library
+37423, 61352, KFC, Restaurant
+38423, 62352, The Coffee House, Cafe
+39423, 63352, Lotte Cinema, Movie Theater
+40423, 64352, Tao Dan Park, Park
+41423, 65352, Goethe Institut Library, Library
+42423, 66352, Jollibee, Restaurant
+43423, 67352, Cong Cafe, Cafe
+44423, 68352, Mega GS Cinema, Movie Theater
+45423, 69352, Hoa Binh Park, Park
+46423, 70352, National Library, Library
+47423, 71352, Pizza Hut, Restaurant
+48423, 72352, Vincom Ice Rink, Entertainment
+49423, 73352, Saigon Sports Club, Gym
+50423, 74352, Youth Cultural House, Event Venue
+51423, 75352, Snap Cafe, Cafe
+52423, 76352, RMIT Sports Arena, Gym
+53423, 77352, Zoo Coffee, Cafe
+54423, 78352, Saigon Zoo, Zoo
+55423, 79352, Hem Chill Bar, Bar
+56423, 80352, Chill Skybar, Bar
+57423, 81352, Hard Rock Cafe, Cafe
+58423, 82352, Soul Ben Thanh, Restaurant
+59423, 83352, Takashimaya, Shopping Mall
+60423, 84352, Central Park, Park
+61423, 85352, Robusta Cafe, Cafe
+62423, 86352, Hana BBQ, Restaurant
+63423, 87352, Cafe Cardinal, Cafe
+64423, 88352, Rex Hotel Roof Garden, Bar
+65423, 89352, City Hall Viewing Deck, Tourist Attraction
+66423, 90352, Saigon Skydeck, Tourist Attraction
+67423, 91352, Vincom Center, Shopping Mall
+68423, 92352, Ben Thanh Market, Market
+69423, 93352, Saigon Centre, Shopping Mall
+70423, 94352, Notre-Dame Cathedral Basilica of Saigon, Historic Site
+71423, 95352, War Remnants Museum, Museum

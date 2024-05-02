@@ -1,17 +1,19 @@
 package Map2D;
 
 import Map2D.QuadTree.QuadTree;
-import Map2D.QuadTree.QuadTreeNode;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 public class Map2D {
     private static final File file = new File("src/Data/place.txt");
 
-    public static void main(String[] args) {
-        QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
-
+    /*
+     *** ADD NEW PLACE ***
+                             */
+    public static void addPlace(QuadTree tree){
         System.out.println("Checking file path: " + file.getAbsolutePath()); // Debug: Check file path
 
         try {
@@ -60,7 +62,7 @@ public class Map2D {
         try {
             String[] parts = line.trim().split(",\\s*");
             if (parts.length < 4) {
-                System.out.println("" + line);  // Debug: Incomplete line
+                System.out.println(line);  // Debug: Incomplete line
                 return;
             }
 
@@ -88,6 +90,147 @@ public class Map2D {
         }
     }
 
+    /*
+     *** EDIT NEW PLACE ***
+                             */
+
+    public static void editPlace() {
+        System.out.println("\n*** EDIT PLACE ***");
+
+        //Set path for temp file
+        File temp = new File("src/Data/temp.txt");
+        Scanner scanner = new Scanner(System.in);
+
+        //User input
+        System.out.print("Enter name of the place to edit: ");
+        String placeName = scanner.nextLine();
+
+        try {
+            //call reader, writer
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
+
+            String currentLine;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] token = currentLine.split(",");
+                //parsing X
+                String locationX = token[0].trim();
+                //Parsing Y
+                String locationY = token[1].trim();
+                //parsing name
+                String name = token[2].trim();
+                // parsing services
+                Set<String> services = new HashSet<>();
+
+                //check if the name is input correctly
+                if(name.equals(placeName)){
+                    System.out.println("\n--UPDATE PLACE INFORMATION--");
+
+                    System.out.print("Please enter the number of services: ");
+                    int servicesNum = scanner.nextInt();
+                    scanner.nextLine();
+
+                    int counter = 0;
+                    if(servicesNum <= 0) {
+                        System.out.println("Invalid number of services");
+                        return;
+                    }else {
+                        while(counter < servicesNum){
+                            System.out.print("Enter new service " + (counter+1) + ": ");
+                            String newService = scanner.nextLine();
+                            services.add(newService);
+                            counter++;
+                        }
+                    }
+                    writer.write(locationX + ", " + locationY + ", " + name + ", ");
+
+                    int check = 0;
+                    for(String service : services) {
+                        if(check < services.size() - 1) {
+                            writer.write(service + ", ");
+                        } else {
+                            writer.write(service); // Last service, no comma after
+                        }
+                        check++;
+                    }
+                }else {
+                    writer.write(currentLine + System.lineSeparator());
+                }
+            }
+            writer.close();
+            reader.close();
+
+            //Replace temp file to the existing file
+            Files.move(temp.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception e) {
+            System.err.println("Error processing the file: " + e.getMessage());
+            throw new RuntimeException("Failed to edit places in the file", e);
+        }
+
+        System.out.println("Update successfully!");
+    }
+
+    /*
+     *** REMOVE PLACE ***
+     */
+    public static void removePlace(){
+        System.out.println("\n*** REMOVE PLACE ***");
+
+        List<Place> check = getList();
+
+        //Set path for temp file
+        File temp = new File("src/Data/tempRemove.txt");
+        Scanner scannerRemove = new Scanner(System.in);
+
+        //User input
+        System.out.print("Enter name of the place to remove: ");
+        String placeRemove = scannerRemove.nextLine();
+
+        try {
+            //call reader, writer
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(temp));
+
+            String currentLine, lineToRemove = null;
+
+            if(!checkPlaceName(placeRemove)){
+                System.out.println("Invalid name!");
+                return;
+            }
+
+            for(Place place : check) {
+                if(place.getName().equals(placeRemove)){
+                    lineToRemove = place.getX() + ", " +
+                                  place.getY() + ", " +
+                                  place.getName() + ", " +
+                                  String.join("," ,place.getServices());
+
+                }
+            }
+
+            while ((currentLine = reader.readLine()) != null) {
+                if(currentLine.equals(lineToRemove)){
+                    continue;
+                }
+                writer.write(currentLine + System.lineSeparator());
+            }
+            writer.close();
+            reader.close();
+
+            //Replace temp file to the existing file
+            Files.move(temp.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception e) {
+            System.err.println("Error processing the file: " + e.getMessage());
+            throw new RuntimeException("Failed to edit places in the file", e);
+        }
+
+        System.out.println("Successfully remove place!");
+    }
+
+    //Create list of places from the txt file
     public static List<Place> getList(){
         List<Place> placeList = new ArrayList<>();
 
@@ -100,7 +243,6 @@ public class Map2D {
                 String[] token = currentLine.split(",");
                 if (token.length > 3) {
                     try{
-
                         int locationX = Integer.parseInt(token[0].trim());
                         int locationY = Integer.parseInt(token[1].trim());
                         String locationName = token[2].trim();
@@ -130,6 +272,7 @@ public class Map2D {
         return placeList;
     }
 
+    //Search place based on service
     public static List<Place> searchLocation_service(String service) {
         List<Place> places = getList();
 
@@ -143,6 +286,7 @@ public class Map2D {
         return results;
     }
 
+    //Get max distance
     private static double getMaxNum(List<Double> list){
         double max = 0;
         for(double num: list){
@@ -153,6 +297,7 @@ public class Map2D {
         return max;
     }
 
+    //Get min distance
     private static double getMinNum(List<Double> list){
         double min = Integer.MAX_VALUE;
         for(double num: list){
@@ -163,6 +308,7 @@ public class Map2D {
         return min;
     }
 
+    //Display available places
     private static void displayPlaces(List<Place> places,int centerX, int centerY){
         System.out.println("*** LIST OF PLACES ***");
         for(Place place: places){
@@ -176,6 +322,7 @@ public class Map2D {
         }
     }
 
+    //Display available places for current location
     private static void displayPlacesForCurrent(List<Place> places,int centerX, int centerY){
         System.out.println("*** LIST OF PLACES ***");
         for(Place place: places){
@@ -189,6 +336,7 @@ public class Map2D {
         }
     }
 
+    //Search places in the bounded area
     private static List<Place> searchNearby(int centerX, int centerY, double distance, String service) {
         List<Place> places = getList();
         List<Place> results = new ArrayList<>();
@@ -206,45 +354,73 @@ public class Map2D {
         }
         return results;
     }
+
+    //Check if service is available or not
+    private static boolean checkService(String service){
+        List<Place> places = getList();
+
+        for(Place place : places) {
+            if(place.getServices().contains(service)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Check if service is existing or not
+    private static boolean checkPlaceName(String name){
+        List<Place> places = getList();
+
+        for(Place place : places) {
+            if(place.getName().contains(name)){
+                return true;
+            }
+        }
+        return false;
+    }
     /*
            *** SEARCH PLACES IN BOUNDED AREA ***
                                                     */
     public static void searchInBoundedArea(){
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\n*** FIND PLACES FROM THE GIVEN LOCATION *** ");
+
         //User input
-        System.out.print("Enter the type of service you want to search: ");
+        System.out.print("\nEnter the type of service you want to search: ");
         String service = scanner.nextLine();
+
         System.out.print("Enter the location name: ");
         String location = scanner.nextLine();
 
         int locationX = 0, locationY = 0;
         String currentLine = "";
 
-        /* READ THE TXT FILE */
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+        if(checkService(service) && checkPlaceName(location)){
+            /* READ THE TXT FILE */
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            while ((currentLine = reader.readLine() )!= null) {
-                String[] token = currentLine.split(",");
+                while ((currentLine = reader.readLine()) != null) {
+                    String[] token = currentLine.split(",");
 
-                String locationName = token[2].trim();
-                int x = Integer.parseInt(token[0].trim());
-                int y = Integer.parseInt(token[1].trim());
+                    String locationName = token[2].trim();
+                    int x = Integer.parseInt(token[0].trim());
+                    int y = Integer.parseInt(token[1].trim());
 
-                if (location.equals(locationName)) {
-                    locationX = x;
-                    locationY = y;
+                    if (location.equals(locationName)) {
+                        locationX = x;
+                        locationY = y;
+                    }
+
                 }
-
-            }
                 //list for places with chosen service
                 List<Place> places_service = searchLocation_service(service);
 
                 //List to store the distance for comparison to get the max distance
                 List<Double> listOfDistances = new ArrayList<>();
 
-                for(Place place: places_service){
+                for (Place place : places_service) {
                     int deltaX = locationX - place.getX();
                     int deltaY = locationY - place.getY();
                     Double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -257,7 +433,7 @@ public class Map2D {
                 System.out.println("\nThe furthest distance is: " + (int) maxDistance + "m");
 
                 double minDistance = getMinNum(listOfDistances);
-                 System.out.println("The closest distance is: " + (int) minDistance + "m\n");
+                System.out.println("The closest distance is: " + (int) minDistance + "m\n");
 
                 //get nearby places
                 List<Place> nearbyPlaces = searchNearby(locationX, locationY, maxDistance, service);
@@ -265,13 +441,14 @@ public class Map2D {
                 //display
                 displayPlaces(nearbyPlaces, locationX, locationY);
 
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error parsing integers from line: " + currentLine);
+                reader.close();
+            } catch (Exception e) {
+                System.err.println("Error parsing integers from line: " + currentLine);
+            }
+        }else {
+            System.out.println("Invalid input");
         }
     }
-
-
 
     /*
          *** SEARCH PLACES IN BOUNDED AREA WITH CURRENT LOCATION ***
@@ -280,40 +457,45 @@ public class Map2D {
     public static void currentLocationCalculate(){
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\n*** FIND PLACES FROM YOUR CURRENT LOCATION *** ");
         //User input
-        System.out.print("Enter the type of services: ");
+        System.out.print("\nEnter the type of services: ");
         String serviceType = scanner.nextLine();
 
-        //Set the default coordinates for the current location
-        int locationX = 10005000, locationY = 10005000;
+        if(checkService(serviceType)){
+            //Set the default coordinates for the current location
+            int locationX = 10005000, locationY = 10005000;
 
-        //list for places with chosen service
-        List<Place> availablePlaces = searchLocation_service(serviceType);
+            //list for places with chosen service
+            List<Place> availablePlaces = searchLocation_service(serviceType);
 
-        //List to store the distance for comparison to get the max distance
-        List<Double> listOfDistances = new ArrayList<>();
+            //List to store the distance for comparison to get the max distance
+            List<Double> listOfDistances = new ArrayList<>();
 
-        for(Place place: availablePlaces){
-            int deltaX = locationX - place.getX();
-            int deltaY = locationY - place.getY();
-            Double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            for (Place place : availablePlaces) {
+                int deltaX = locationX - place.getX();
+                int deltaY = locationY - place.getY();
+                Double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-            //Add the distance to the list
-            listOfDistances.add(distance);
+                //Add the distance to the list
+                listOfDistances.add(distance);
+            }
+
+            // Get maximum and minimum distances
+            double maxDistance = getMaxNum(listOfDistances);
+            System.out.println("\nThe furthest distance is: " + (int) maxDistance + "m");
+
+            double minDistance = getMinNum(listOfDistances);
+            System.out.println("The closest distance is: " + (int) minDistance + "m\n");
+
+            //get nearby places
+            List<Place> nearbyPlaces = searchNearby(locationX, locationY, maxDistance, serviceType);
+
+            //display
+            displayPlacesForCurrent(nearbyPlaces, locationX, locationY);
+        }else{
+            System.out.println("Invalid service!");
         }
-
-        // Get maximum and minimum distances
-        double maxDistance = getMaxNum(listOfDistances);
-        System.out.println("\nThe furthest distance is: " + (int) maxDistance + "m");
-
-        double minDistance = getMinNum(listOfDistances);
-        System.out.println("The closest distance is: " + (int) minDistance + "m\n");
-
-        //get nearby places
-        List<Place> nearbyPlaces = searchNearby(locationX, locationY, maxDistance, serviceType);
-
-        //display
-        displayPlacesForCurrent(nearbyPlaces, locationX, locationY);
     }
 }
 
