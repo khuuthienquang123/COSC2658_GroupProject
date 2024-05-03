@@ -14,15 +14,14 @@ public class Map2D {
      *** ADD NEW PLACE ***
                              */
     public static void addPlace(QuadTree tree){
-        System.out.println("Checking file path: " + file.getAbsolutePath()); // Debug: Check file path
-
         try {
             Scanner scanner = new Scanner(file);
-            System.out.println("File opened successfully.");  // Debug: File opened
+
+            System.out.println("** INFO OF THE PLACE **\n");
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                System.out.println("info of the place: coordinate, name, service type: " + line);  // Debug: Output read line
+                System.out.println("Coordinate, name, service type: " + line);  // Debug: Output read line
                 addPlaceFromLine(line, tree);
             }
             scanner.close();
@@ -33,7 +32,7 @@ public class Map2D {
 
         // Adding a new place based on user input
         Scanner userInput = new Scanner(System.in);
-        System.out.println("Please enter the new place details:");
+        System.out.println(" ENTERING NEW PLACE DETAIL...");
         System.out.print("Enter X coordinate: ");
         int x = userInput.nextInt();
         System.out.print("Enter Y coordinate: ");
@@ -50,7 +49,7 @@ public class Map2D {
 
         List<Place> allPlaces = tree.search(0, 0, 10000000, 10000000, null);
         if (allPlaces.isEmpty()) {
-            System.out.println(" places loaded into the tree.");  // Debug: No data loaded
+            System.out.println("Places loaded into the tree.");  // Debug: No data loaded
         } else {
             for (Place place : allPlaces) {
                 System.out.println("Place: " + place.getName() + " at (" + place.getX() + ", " + place.getY() + ") offers: " + String.join(", ", place.getServices()));
@@ -74,7 +73,7 @@ public class Map2D {
             Place place = new Place(x, y, name);
             place.setServices(List.of(service));
             tree.add(place);
-            System.out.println("Added place: " + name);  // Debug: Confirm addition
+            System.out.println("\nAdded place: " + name);  // Debug: Confirm addition
         } catch (Exception e) {
             System.out.println(" " + line + "; " + e.getMessage());
         }
@@ -84,7 +83,7 @@ public class Map2D {
         String data = x + ", " + y + ", " + name + ", " + service + "\n";
         try (FileWriter fw = new FileWriter(file, true)) {
             fw.write(data);
-            System.out.println("Successfully added place to file: " + name);
+            System.out.println("\nSuccessfully added place to file: " + name + "\n");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
@@ -93,7 +92,6 @@ public class Map2D {
     /*
      *** EDIT PLACE ***
                              */
-
     public static void editPlace() {
         System.out.println("\n*** EDIT PLACE ***");
 
