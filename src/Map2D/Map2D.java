@@ -281,6 +281,9 @@ public class Map2D {
                 result = service.getValue();
             }
         }
+        if(result == null){
+            System.out.println("Invalid input number");
+        }
         return result;
     }
 
