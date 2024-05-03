@@ -517,7 +517,7 @@ public class Map2D {
 
         if(checkService(serviceType)){
             //Set the default coordinates for the current location
-            int locationX = 10005000, locationY = 10005000;
+            int locationX = 9005000, locationY = 9005000;
 
             //list for places with chosen service
             List<Place> availablePlaces = searchLocation_service(serviceType);
