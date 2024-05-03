@@ -40,10 +40,8 @@
 62423, 86352, Hana BBQ, Restaurant
 63423, 87352, Cafe Cardinal, Cafe
 64423, 88352, Rex Hotel Roof Garden, Bar
-65423, 89352, City Hall Viewing Deck, Tourist Attraction
 66423, 90352, Saigon Skydeck, Tourist Attraction
-67423, 91352, Vincom Center, Shopping Mall
-68423, 92352, Ben Thanh Market, Market
+67423, 91352, Vincom Center, Shopping Mall, Movie Theater68423, 92352, Ben Thanh Market, Market
 69423, 93352, Saigon Centre, Shopping Mall
 70423, 94352, Notre-Dame Cathedral Basilica of Saigon, Historic Site
 71423, 95352, War Remnants Museum, Museum

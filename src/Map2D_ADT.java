@@ -89,6 +89,7 @@ public class Map2D_ADT {
             System.out.print("\nPlease enter a number: ");
 
             int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:

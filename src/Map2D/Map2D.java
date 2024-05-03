@@ -82,7 +82,7 @@ public class Map2D {
 
     private static void addPlaceToFile(int x, int y, String name, String service) {
         String data = x + ", " + y + ", " + name + ", " + service + "\n";
-        try (FileWriter fw = new FileWriter("src/Map2D/place.txt", true)) {
+        try (FileWriter fw = new FileWriter(file, true)) {
             fw.write(data);
             System.out.println("Successfully added place to file: " + name);
         } catch (IOException e) {
@@ -91,7 +91,7 @@ public class Map2D {
     }
 
     /*
-     *** EDIT NEW PLACE ***
+     *** EDIT PLACE ***
                              */
 
     public static void editPlace() {
@@ -169,7 +169,7 @@ public class Map2D {
             throw new RuntimeException("Failed to edit places in the file", e);
         }
 
-        System.out.println("Update successfully!");
+        System.out.println("Update successfully!\n");
     }
 
     /*
@@ -227,7 +227,7 @@ public class Map2D {
             throw new RuntimeException("Failed to edit places in the file", e);
         }
 
-        System.out.println("Successfully remove place!");
+        System.out.println("Successfully remove place!\n");
     }
 
     public static String getServices(){
@@ -235,7 +235,7 @@ public class Map2D {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(" -- LIST OF SERVICES --\n");
+        System.out.println("\n-- LIST OF SERVICES --");
         System.out.println("1. Movie Theater");
         System.out.println("2. Park");
         System.out.println("3. Library");
