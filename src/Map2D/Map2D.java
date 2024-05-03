@@ -230,6 +230,60 @@ public class Map2D {
         System.out.println("Successfully remove place!");
     }
 
+    public static String getServices(){
+        Map<Integer, String> serviceMap = new HashMap<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println(" -- LIST OF SERVICES --\n");
+        System.out.println("1. Movie Theater");
+        System.out.println("2. Park");
+        System.out.println("3. Library");
+        System.out.println("4. Restaurant");
+        System.out.println("5. Cafe");
+        System.out.println("6. Entertainment");
+        System.out.println("7. Gym");
+        System.out.println("8. Event Venue");
+        System.out.println("9. Zoo");
+        System.out.println("10. Bar");
+        System.out.println("11. Shopping Mall");
+        System.out.println("12. Tourist Attraction");
+        System.out.println("13. Market");
+        System.out.println("14. Historic Site");
+        System.out.println("15. Museum");
+
+        System.out.print("\nEnter the number of the service: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        // Inserting pairs in the Map
+        // using put() method
+        serviceMap.put(1, "Movie Theater");
+        serviceMap.put(2, "Park");
+        serviceMap.put(3, "Library");
+        serviceMap.put(4, "Restaurant");
+        serviceMap.put(5, "Cafe");
+        serviceMap.put(6, "Entertainment");
+        serviceMap.put(7, "Gym");
+        serviceMap.put(8, "Event Venue");
+        serviceMap.put(9, "Zoo");
+        serviceMap.put(10, "Bar");
+        serviceMap.put(11, "Shopping Mall");
+        serviceMap.put(12, "Tourist Attraction");
+        serviceMap.put(13, "Market");
+        serviceMap.put(14, "Historic Site");
+        serviceMap.put(15, "Museum");
+
+        String result = null;
+        // Traversing through Map using for-each loop
+        for(Map.Entry<Integer, String> service: serviceMap.entrySet()) {
+            if(service.getKey() == choice){
+                result = service.getValue();
+            }
+        }
+        return result;
+    }
+
     //Create list of places from the txt file
     public static List<Place> getList(){
         List<Place> placeList = new ArrayList<>();
@@ -387,8 +441,7 @@ public class Map2D {
         System.out.println("\n*** FIND PLACES FROM THE GIVEN LOCATION *** ");
 
         //User input
-        System.out.print("\nEnter the type of service you want to search: ");
-        String service = scanner.nextLine();
+        String service = getServices();
 
         System.out.print("Enter the location name: ");
         String location = scanner.nextLine();
@@ -455,12 +508,11 @@ public class Map2D {
                                                                           */
 
     public static void currentLocationCalculate(){
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n*** FIND PLACES FROM YOUR CURRENT LOCATION *** ");
+
         //User input
-        System.out.print("\nEnter the type of services: ");
-        String serviceType = scanner.nextLine();
+        String serviceType = getServices();
 
         if(checkService(serviceType)){
             //Set the default coordinates for the current location

@@ -5,7 +5,7 @@ import Map2D.QuadTree.QuadTree;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class Map2D_ADT {
     public static void main(String[] args){
         QuadTree tree = new QuadTree(0, 0, 10000000, 10000000);
 
