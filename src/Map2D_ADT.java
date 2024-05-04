@@ -76,7 +76,6 @@ public class Map2D_ADT {
 
         Scanner scanner = new Scanner(System.in);
 
-
         System.out.println("-- WELCOME --");
         System.out.println("--------------------------------");
         System.out.println(" -- MENU -- ");
@@ -94,26 +93,25 @@ public class Map2D_ADT {
         switch (choice) {
             case 1:
                 Map2D.searchInBoundedArea();
-                break;
+                return;
             case 2:
                 Map2D.currentLocationCalculate();
-                break;
+                return;
             case 3:
                 Map2D.addPlace(tree);
-                break;
+                return;
             case 4:
                 Map2D.editPlace();
-                break;
+                return;
             case 5:
                 Map2D.removePlace();
-                break;
+                return;
             case 6:
                 System.out.println("Exiting program.");
                 scanner.close();
                 return;
             default:
                 System.out.println("Invalid choice, please try again.");
-                break;
         }
     }
 }
