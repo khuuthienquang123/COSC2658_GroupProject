@@ -14,6 +14,22 @@ public class Map2D {
      *** ADD NEW PLACE ***
                              */
     public static void addPlace(QuadTree tree){
+        try {
+            Scanner scanner = new Scanner(file);
+
+            System.out.println("** INFO OF THE PLACE **\n");
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println("Coordinate, name, service type: " + line);  // Debug: Output read line
+                addPlaceFromLine(line, tree);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+            return;
+        }
+
         // Adding a new place based on user input
         Scanner userInput = new Scanner(System.in);
         System.out.println(" ENTERING NEW PLACE DETAIL...");
@@ -43,7 +59,7 @@ public class Map2D {
 
     private static void addPlaceFromLine(String line, QuadTree tree) {
         try {
-            String[] parts = line.trim().split(",");
+            String[] parts = line.trim().split(",\\s*");
             if (parts.length < 4) {
                 System.out.println(line);  // Debug: Incomplete line
                 return;
@@ -52,17 +68,11 @@ public class Map2D {
             int x = Integer.parseInt(parts[0]);
             int y = Integer.parseInt(parts[1]);
             String name = parts[2];
-
-            // Collect services
-            Set<String> services = new HashSet<>();
-            for (int i = 3; i < parts.length; i++) {
-                services.add(parts[i].trim());
-            }
+            String service = parts[3];
 
             Place place = new Place(x, y, name);
-            place.setServices(services);
+            place.setServices(List.of(service));
             tree.add(place);
-
             System.out.println("\nAdded place: " + name);  // Debug: Confirm addition
         } catch (Exception e) {
             System.out.println(" " + line + "; " + e.getMessage());
@@ -70,11 +80,10 @@ public class Map2D {
     }
 
     private static void addPlaceToFile(int x, int y, String name, String service) {
-        String data = x + ", " + y + ", " + name + ", " + service +  System.lineSeparator();
-
-        try (FileWriter writer = new FileWriter(file, true)) {
-            writer.write(data);
-            System.out.println("Successfully added place to file: " + name + "\n");
+        String data = x + ", " + y + ", " + name + ", " + service + "\n";
+        try (FileWriter fw = new FileWriter(file, true)) {
+            fw.write(data);
+            System.out.println("\nSuccessfully added place to file: " + name + "\n");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }

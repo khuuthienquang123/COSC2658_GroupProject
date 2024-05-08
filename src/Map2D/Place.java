@@ -41,4 +41,14 @@ public class Place {
     public void addServices(Set<String> services) {
         this.services.addAll(services);
     }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "x=" + x +
+                ", y=" + y +
+                ", name='" + name + '\'' +
+                ", services=" + services +
+                '}';
+    }
 }

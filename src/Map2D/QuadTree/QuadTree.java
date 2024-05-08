@@ -20,11 +20,26 @@ public class QuadTree {
         return root.queryPlace(x1, y1, width + x1, height + y1, service);
     }
 
-    public void editPlace(Place place, Collection<String> newServices){
+    public void editPlace(Place place, Collection<String> newServices) {
         root.edit(place, newServices);
     }
 
-    public void removePlace(Place place){
-        root.remove(place);
+    public boolean removePlace(int x, int y) {
+        if (root != null) {
+            root.removePlace(x, y);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void display(){
+        // Add places
+        List<Place> allPlaces = root.getAllPlaces();
+
+        // You can now print the places or use them as needed
+        for (Place place : allPlaces) {
+            System.out.println("Place at (" + place.getX() + ", " + place.getY() + ")");
+        }
     }
 }

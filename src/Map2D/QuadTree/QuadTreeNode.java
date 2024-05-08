@@ -97,6 +97,7 @@ public class QuadTreeNode {
         return result;
     }
 
+
     public Place findPlace(int x, int y){
         if(!contains(x, y)){
             return null;
@@ -127,12 +128,40 @@ public class QuadTreeNode {
         }
     }
 
-    public void remove(Place place){
-        Place foundPlace = findPlace(place.getX(), place.getY());
-        if(foundPlace != null){
-            places.remove(foundPlace);
-        }else{
-            throw new RuntimeException("Invalid place to remove");
+    //
+    // Method to remove a place based on coordinates
+    public boolean removePlace(int x, int y) {
+        if (children[0] == null) {
+            // If there are no children, attempt to remove from this node
+            return places.removeIf(place -> place.getX() == x && place.getY() == y);
+        } else {
+            // If there are children, find the correct child to recurse into
+            for (QuadTreeNode child : children) {
+                if (child.contains(x, y)) {
+                    boolean isRemoved = child.removePlace(x, y);
+                    if (isRemoved) {
+                        // Optional: Implement logic to handle empty children or rebalance the tree
+                        return true;
+                    }
+                }
+            }
+        }
+        return false; // Place not found in any children or at this node
+    }
+
+    public List<Place> getAllPlaces() {
+        List<Place> allPlaces = new ArrayList<>();
+        gatherPlaces(allPlaces);
+        return allPlaces;
+    }
+
+    private void gatherPlaces(List<Place> allPlaces) {
+        if (children[0] == null) {
+            allPlaces.addAll(places); // If there are no children, add all places at this node
+        } else {
+            for (QuadTreeNode child : children) {
+                child.gatherPlaces(allPlaces); // Recurse into each child
+            }
         }
     }
 }
