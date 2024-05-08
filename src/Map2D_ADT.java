@@ -55,18 +55,13 @@ public class Map2D_ADT {
         //display
         tree.display();
 
-        System.out.println("Place at (" + place1.getX() + ", " + place1.getY() + ") offers: " + String.join(", ", place1.getServices()));
         // Edit services for a place
         tree.editPlace(place1, List.of("Bakery"));
-        System.out.println("\nPlace at (" + place1.getX() + ", " + place1.getY() + ") offers: " + String.join(", ", place1.getServices()));
-        // Remove a place
-        boolean result = tree.removePlace(10, 20); // Attempt to remove the place at (10, 20)
 
-        if (result) {
-            System.out.println("Place removed successfully.");
-        } else {
-            System.out.println("Place not found.");
-        }
+        // Remove a place
+        boolean result = tree.removePlace(9500000, 9750000); // Attempt to remove the place at (10, 20)
+
+        System.out.println("Removal was " + (result ? "successful" : "unsuccessful"));
 
         tree.display();
 

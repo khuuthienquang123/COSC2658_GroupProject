@@ -5,6 +5,7 @@ import Map2D.Place;
 import java.util.Collection;
 import java.util.List;
 
+
 public class QuadTree {
     QuadTreeNode root;
 
@@ -34,12 +35,7 @@ public class QuadTree {
     }
 
     public void display(){
-        // Add places
-        List<Place> allPlaces = root.getAllPlaces();
-
-        // You can now print the places or use them as needed
-        for (Place place : allPlaces) {
-            System.out.println("Place at (" + place.getX() + ", " + place.getY() + ")");
-        }
+        System.out.println("Displaying places:");
+        root.displayPlaces();
     }
 }

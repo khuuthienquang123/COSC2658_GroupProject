@@ -27,7 +27,7 @@ public class QuadTreeNode {
     }
 
     private boolean contains(int x, int y){
-        return (x >= x1 && x <= x2 && y >= y1 && y <= y2);
+        return (x >= x1 && x < x2 && y >= y1 && y < y2);
     }
 
     public void add(Place place){
@@ -132,35 +132,31 @@ public class QuadTreeNode {
     // Method to remove a place based on coordinates
     public boolean removePlace(int x, int y) {
         if (children[0] == null) {
-            // If there are no children, attempt to remove from this node
-            return places.removeIf(place -> place.getX() == x && place.getY() == y);
+            // This is a leaf node, attempt to remove the place directly from this node
+            boolean removed = places.removeIf(place -> place.getX() == x && place.getY() == y);
+            if (removed) {
+                System.out.println("Place removed from node [" + x1 + ", " + y1 + ", " + x2 + ", " + y2 + "]");
+            }
+            return removed;
         } else {
-            // If there are children, find the correct child to recurse into
+            // This is an internal node, recurse into the correct child
             for (QuadTreeNode child : children) {
                 if (child.contains(x, y)) {
-                    boolean isRemoved = child.removePlace(x, y);
-                    if (isRemoved) {
-                        // Optional: Implement logic to handle empty children or rebalance the tree
-                        return true;
-                    }
+                    return child.removePlace(x, y);
                 }
             }
         }
         return false; // Place not found in any children or at this node
     }
 
-    public List<Place> getAllPlaces() {
-        List<Place> allPlaces = new ArrayList<>();
-        gatherPlaces(allPlaces);
-        return allPlaces;
-    }
-
-    private void gatherPlaces(List<Place> allPlaces) {
+    public void displayPlaces() {
         if (children[0] == null) {
-            allPlaces.addAll(places); // If there are no children, add all places at this node
+            for (Place place : places) {
+                System.out.println("Place at (" + place.getX() + ", " + place.getY() + ")");
+            }
         } else {
             for (QuadTreeNode child : children) {
-                child.gatherPlaces(allPlaces); // Recurse into each child
+                child.displayPlaces();
             }
         }
     }
